@@ -4,3 +4,25 @@ ruby "3.4.4"
 
 gem "falcon"
 gem "sinatra"
+
+unless File.exist?("bin/pandoc")
+  puts "Installing Pandoc…"
+  system(<<~SHELL)
+    curl -L https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-amd64.tar.gz \
+      | tar -xz -C vendor
+    ln -sf ../vendor/pandoc-3.7.0.2/bin/pandoc bin/pandoc
+    bin/pandoc --help
+  SHELL
+end
+
+unless File.exist?("bin/magick")
+  puts "Installing ImageMagick…"
+  system(<<~SHELL)
+    curl -L --output /tmp/magick.app https://imagemagick.org/archive/binaries/magick
+    chmod +x /tmp/magick.app
+    /tmp/magick.app --appimage-extract
+    mv /tmp/squashfs-root vendor/imagemagick
+    ln -sf ../vendor/imagemagick/usr/bin/magick bin/magick
+    bin/magick --help
+  SHELL
+end
