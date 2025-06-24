@@ -18,10 +18,11 @@ end
 unless File.exist?("bin/magick")
   puts "Installing ImageMagick…"
   system(<<~SHELL)
-    curl -L --output /tmp/magick.app https://imagemagick.org/archive/binaries/magick
-    chmod +x /tmp/magick.app
-    /tmp/magick.app --appimage-extract
-    mv /tmp/squashfs-root vendor/imagemagick
+    curl -L --output magick.app https://imagemagick.org/archive/binaries/magick
+    chmod +x magick.app
+    magick.app --appimage-extract
+    rm magick.app
+    mv squashfs-root vendor/imagemagick
     ln -sf ../vendor/imagemagick/usr/bin/magick bin/magick
     bin/magick --help
   SHELL
