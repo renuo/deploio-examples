@@ -10,6 +10,7 @@ unless File.exist?("bin/pandoc")
   system(<<~SHELL)
     curl -L https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-linux-amd64.tar.gz \
       | tar -xz -C vendor
+    ls -lha
     ln -sf ../vendor/pandoc-3.7.0.2/bin/pandoc bin/pandoc
     bin/pandoc --help
   SHELL
@@ -19,6 +20,7 @@ unless File.exist?("bin/magick")
   puts "Installing ImageMagick…"
   system(<<~SHELL)
     curl -L --output magick.app https://imagemagick.org/archive/binaries/magick
+    ls -lha
     chmod +x magick.app
     magick.app --appimage-extract
     rm magick.app
